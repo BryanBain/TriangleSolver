@@ -143,10 +143,6 @@ def ass():
 def sas():
     """
     Solves a side-angle-side triangle.
-    :param side1: The shorter of the two sides given
-    :param angle: The angle given, in degrees.
-    :param side2: The longer of the two sides given.
-    :return Tuple of missing side length and angle measures.
     """
     
     known_angle = float(input("Please enter the angle measure in degrees. "))
@@ -173,10 +169,6 @@ def sas():
 def sss():
     """
     Solves a side-side-side triangle.
-    :param side1: The shortest of the three given sides
-    :param side2: The next shortest of the three given sides
-    :param side3: The longest of the three given sides
-    :return Tuple of the three missing angle measures, in degrees.
     """
     
     shortest_side = float(input("Please enter the length of the shortest side. "))
