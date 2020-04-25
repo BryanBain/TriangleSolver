@@ -48,7 +48,7 @@ def asa():
     print(f"The area of the triangle is {area:.2f} square units.")
     print()  
 
-def aas(angle1, angle2, side, aas_choice):
+def aas():
     """
     Solves an angle-angle-side triangle.
     :param angle1: The smaller of the two angles given
@@ -58,21 +58,40 @@ def aas(angle1, angle2, side, aas_choice):
            2 otherwise
     :return Tuple of the missing angle ad sides opposite angles 1 and 2.
     """
-
-    missing_angle = 180 - angle1 - angle2
-
-    if aas_choice == 1:
-        side1 = (side * sin(radians(angle2))) / sin(radians(angle1))
-        side2 = (side * sin(radians(missing_angle))) / sin(radians(angle1))
-        area = getArea(side, side1, side2)
-        return missing_angle, side1, side2, area
-
-    elif aas_choice == 2:
-        side3 = (side * sin(radians(angle1))) / sin(radians(angle2))
-        side4 = (side * sin(radians(missing_angle))) / sin(radians(angle2))
-        area = getArea(side, side3, side4)
-        return missing_angle, side3, side4, area
-
+    
+    small_angle = float(input("Please enter the smaller angle measure. "))
+    assert small_angle > 0 and small_angle < 180, "Angle must be between 0 and 180 degrees."
+    large_angle = float(input("Please enter the larger angle measure. "))
+    assert large_angle > 0 and large_angle < 180, "Angle must be between 0 and 180 degrees."
+    assert small_angle + large_angle < 180, "There are too many degrees for the given angle measures."
+    third_angle = 180 - small_angle - large_angle
+    known_side = float(input("Please enter the length of the side you are given. "))
+    assert known_side > 0, "Side length must be positive."
+    print("1. The smaller angle.")
+    print("2. The larger angle.\n")
+    aas_choice = input("Which side is the known angle across from? Pick either if the angles are equal. ")
+    
+    if aas_choice == "1":
+        side1 = (known_side * sin(radians(large_angle))) / sin(radians(small_angle))
+        side2 = (known_side * sin(radians(third_angle))) / sin(radians(small_angle))
+        area = getArea(known_side, side1, side2)
+        print(f"The unknown angle is {third_angle:.2f} degrees.")
+        print()
+        print(f"The side opposite the {large_angle:.2f} degree angle measures {side1:.2f}")
+        print(f"The side opposite the {third_angle:.2f} degree angles measures {side2:.2f}")
+        print(f"The area of the triangle is {area:.2f}")
+        print()
+    
+    else:
+        side1 = (known_side * sin(radians(small_angle))) / sin(radians(large_angle))
+        side2 = (known_side * sin(radians(third_angle))) / sin(radians(large_angle))
+        area = getArea(known_side, side1, side2)
+        print(f"The third angle is {third_angle:.2f} degrees.")
+        print()
+        print(f"The side opposite the {small_angle:.2f} degree angle is about {side1:.2f}")
+        print(f"The side opposite the {third_angle:.2f} degree angle is about {side2:.2f}")
+        print(f"The area of the triangle is {area:.2f}")
+        print()
 
 def ass(angle, side1, side2):
     """
@@ -173,39 +192,7 @@ def main():
 
         # AAS Case
         elif choice == "2":
-            small_angle = float(input("Please enter the smaller angle measure. "))
-            assert small_angle > 0 and small_angle < 180, "Angle must be between 0 and 180 degrees."
-            large_angle = float(input("Please enter the larger angle measure. "))
-            assert large_angle > 0 and large_angle < 180, "Angle must be between 0 and 180 degrees."
-            assert small_angle + large_angle < 180, "There are too many degrees for the given angle measures."
-            known_side = float(input("Please enter the length of the side you are given. "))
-            assert known_side > 0, "Side length must be positive."
-            print("1. The smaller angle.")
-            print("2. The larger angle.\n")
-            aas_choice = input("Which side is the known angle across from? Pick either if the angles are equal. ")
-            third_angle = 180 - small_angle - large_angle
-
-            if aas_choice == "1":
-                side1 = aas(small_angle, large_angle, known_side, 1)[1]
-                side2 = aas(small_angle, large_angle, known_side, 1)[2]
-                area_aas1 = aas(small_angle, large_angle, known_side, 1)[3]
-                print("The unknown angle is {:.2f} degrees.".format(third_angle))
-                print()
-                print("The side opposite the {0:.2f} degree angles measures {1:.2f}".format(large_angle, side1))
-                print("The side opposite the {0:.2f} degree angles measures {1:.2f}".format(third_angle, side2))
-                print("The area of the triangle is {0:.2f}".format(area_aas1))
-                print()
-
-            else:
-                side3 = aas(small_angle, large_angle, known_side, 2)[1]
-                side4 = aas(small_angle, large_angle, known_side, 2)[2]
-                area_aas2 = aas(small_angle, large_angle, known_side, 1)[3]
-                print("The third angle is {:.2f} degrees.".format(third_angle))
-                print()
-                print("The side opposite the {0:.2f} degree angle is about {1:.2f}".format(small_angle, side3))
-                print("The side opposite the {0:.2f} degree angle is about {1:.2f}".format(third_angle, side4))
-                print("The area of the triangle is {0:.2f}".format(area_aas2))
-                print()
+            aas()
 
         # ASS Case
         elif choice == "3":
